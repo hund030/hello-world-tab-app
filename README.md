@@ -5,7 +5,7 @@ Changelog
 1. Remove graph toolkit library.
 
 
-===================================== Origin README =====================================
+================================ Origin README ================================
 
 # Teams Toolkit v5.0 Pre-release
 
