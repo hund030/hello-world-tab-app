@@ -3,6 +3,8 @@ Changelog
 1. Remove Northstar UI library.
 1. Remove extra pages and React components.
 1. Remove graph toolkit library.
+1. Remove SSO and graph api call.
+1. Remove TeamsFx SDK.
 
 
 ================================ Origin README ================================
