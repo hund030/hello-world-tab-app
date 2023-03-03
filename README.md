@@ -5,6 +5,8 @@ Changelog
 1. Remove graph toolkit library.
 1. Remove SSO and graph api call.
 1. Remove TeamsFx SDK.
+1. Remove React Framework.
+1. Use Raw Html.
 
 
 ================================ Origin README ================================
