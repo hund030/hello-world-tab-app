@@ -11,6 +11,11 @@
       crossorigin="anonymous"
     ></script>
     <script src="/scripts/teamsapp.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Microsoft Teams Tab</title>
   </head>
 
@@ -26,10 +31,110 @@
             <p id="hubName"></p>
           </span>
         </div>
+        <button onclick="requestConsent()">Consent</button>
+        <button onclick="ssoAuthentication()">Get Details</button>
+        <div class="container">
+          <div class="profile">
+            <span id="name"><b>Name: </b></span><br />
+            <span id="username"><b>User Name: </b></span><br />
+            <span id="email"><b>Email: </b></span><br />
+            <span id="work"><b>Work: </b></span>
+          </div>
+        </div>
       </div>
     </div>
     <script type="text/javascript">
       microsoftTeams.appInitialization.notifySuccess();
+      const clientId = "2af5bead-cc56-467e-aa24-645addd5d5f3";
+      function ssoAuthentication() {
+        getClientSideToken()
+          .then((token) => {
+            getServerSideToken(token);
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      }
+      function getClientSideToken() {
+        return new Promise((resolve, reject) => {
+          microsoftTeams.authentication
+            .getAuthToken()
+            .then((result) => {
+              console.log(result);
+              resolve(result);
+            })
+            .catch((error) => {
+              alert(error);
+              reject("Error getting token: " + error);
+            });
+        });
+      }
+      function getServerSideToken(clientSideToken) {
+        return new Promise((resolve, reject) => {
+          microsoftTeams.app.getContext().then((context) => {
+            fetch("/getUserInfo", {
+              method: "post",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                tid: context.user.tenant.id,
+                token: clientSideToken,
+              }),
+              mode: "cors",
+              cache: "default",
+            })
+              .then((response) => {
+                if (response.ok) {
+                  console.log(response);
+                  return response.json();
+                } else {
+                  reject(response.error);
+                }
+              })
+              .then((responseJson) => {
+                if (responseJson.error) {
+                  reject(responseJson.error);
+                } else {
+                  const userDetails = responseJson;
+                  let userName = userDetails.displayName.split(" ");
+                  $("#name").append(userDetails.displayName);
+                  $("#username").append(
+                    `${userName[0]}_${userName[1]}  <i class="fa fa-pencil" aria-hidden="true" onclick="ssoUserNameToggle()"></i>`
+                  );
+                  $("#email").append(userDetails.userPrincipalName);
+                  $("#work").append(userDetails.jobTitle);
+                }
+              });
+          });
+        });
+      }
+      function requestConsent() {
+        getToken().then((data) => {
+          $("#consent").hide();
+          $("#divError").hide();
+          getClientSideToken().then((token) => {
+            getServerSideToken(token);
+          });
+        });
+      }
+      function getToken() {
+        return new Promise((resolve, reject) => {
+          microsoftTeams.authentication
+            .authenticate({
+              url: window.location.origin + "/auth-start",
+              width: 600,
+              height: 535,
+            })
+            .then((result) => {
+              resolve(result);
+            })
+            .catch((reason) => {
+              reject(reason);
+            });
+        });
+      }
     </script>
   </body>
 </html>
