@@ -8,6 +8,7 @@ Changelog
 1. Remove React Framework.
 1. Use Raw Html.
 
+![hello-world-tab](images/hello-world-tab.png)
 
 ================================ Origin README ================================
 

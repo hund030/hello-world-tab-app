@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev:teamsfx": "env-cmd --silent -f .localSettings npm run start",
-    "start": "browser-sync start --server \"src\" --files \"src\"",
+    "start": "browser-sync start --port 53985 --https --server \"src\" --files \"src\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": ".",
