@@ -6,6 +6,7 @@ Changelog
 1. Remove SSO and graph api call.
 1. Remove TeamsFx SDK.
 
+![hello-world-tab](images/hello-world-tab.png)
 
 ================================ Origin README ================================
 
