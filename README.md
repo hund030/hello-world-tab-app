@@ -4,6 +4,7 @@ Changelog
 1. Remove extra pages and React components.
 1. Remove graph toolkit library.
 
+![hello-world-tab](images/hello-world-tab.png)
 
 ================================ Origin README ================================
 
