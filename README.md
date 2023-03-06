@@ -7,7 +7,8 @@ Changelog
 1. Remove TeamsFx SDK.
 1. Remove React Framework.
 1. Create server web app with restify.
-1. Add SSO and graph api call.
+1. Add SSO.
+1. Exchange obo token with msal-node library and call graph api.
 
 <img src="images/hello-world-tab.png" width="1000">
 <img src="images/hello-world-tab-outlook.png" width="1000">
