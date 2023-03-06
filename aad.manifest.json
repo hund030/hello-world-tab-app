@@ -94,15 +94,15 @@
     ],
     "replyUrlsWithType": [
         {
-            "url": "${{TAB_ENDPOINT}}/auth-end.html",
+            "url": "${{TAB_ENDPOINT}}/auth-end",
             "type": "Web"
         },
         {
-            "url": "${{TAB_ENDPOINT}}/auth-end.html?clientId=${{AAD_APP_CLIENT_ID}}",
+            "url": "${{TAB_ENDPOINT}}/auth-end?clientId=${{AAD_APP_CLIENT_ID}}",
             "type": "Spa"
         },
         {
-            "url": "${{TAB_ENDPOINT}}/blank-auth-end.html",
+            "url": "${{TAB_ENDPOINT}}/blank-auth-end",
             "type": "Spa"
         }
     ]

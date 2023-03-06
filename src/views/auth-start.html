@@ -22,7 +22,7 @@
       microsoftTeams.app.initialize().then(() => {
         microsoftTeams.app.getContext().then(async (context) => {
           // Generate random state string and store it, so we can verify it in the callback
-          const clientId = "2af5bead-cc56-467e-aa24-645addd5d5f3"; // Use template engine to get rid of hard coding
+          const clientId = "c82dbe6f-4177-47f4-bf46-f98bca13760e"; // Use template engine to get rid of hard coding
           var scope = "User.Read";
           var loginHint = context.user.loginHint;
 
@@ -42,7 +42,7 @@
           const scopesRequest = {
             scopes: scopesArray,
             redirectUri:
-              window.location.origin + `/auth-end.html?clientId=${clientId}`,
+              window.location.origin + `/auth-end?clientId=${clientId}`,
             loginHint: loginHint,
           };
           await msalInstance.loginRedirect(scopesRequest);

@@ -22,6 +22,10 @@ server.listen(process.env.port || process.env.PORT || 3333, function () {
   console.log(`\n${server.name} listening to ${server.url}`);
 });
 
+server.get("/static/*", restify.plugins.serveStatic({
+  directory: "./src"
+}));
+
 // Adding tabs to our app. This will setup routes to various views
 // Setup home page
 server.get("/", (req, res, next) => {
@@ -37,7 +41,11 @@ server.get("/auth-start", (req, res, next) => {
   send(req, "src/views/auth-start.html").pipe(res);
 });
 
-server.get("/auth-end.html", (req, res, next) => {
+server.get("/auth-end", (req, res, next) => {
+  send(req, "src/views/auth-end.html").pipe(res);
+});
+
+server.get("/blank-auth-end", (req, res, next) => {
   send(req, "src/views/auth-end.html").pipe(res);
 });
 
