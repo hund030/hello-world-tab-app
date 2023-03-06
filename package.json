@@ -6,6 +6,7 @@
   },
   "private": true,
   "dependencies": {
+    "@azure/msal-node": "^1.15.0",
     "@microsoft/microsoft-graph-client": "^3.0.5",
     "axios": "^0.21.1",
     "isomorphic-fetch": "^3.0.0",

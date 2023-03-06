@@ -2,7 +2,8 @@ const restify = require("restify");
 const send = require("send");
 const fs = require("fs");
 const { Client } = require("@microsoft/microsoft-graph-client");
-require('isomorphic-fetch');
+const msal = require('@azure/msal-node');
+require("isomorphic-fetch");
 
 //Create HTTP server.
 const server = restify.createServer({
@@ -38,6 +39,52 @@ server.get("/auth-start", (req, res, next) => {
 
 server.get("/auth-end.html", (req, res, next) => {
   send(req, "src/views/auth-end.html").pipe(res);
+});
+
+server.post("/getProfileOnBehalfOf", (req, res, next) => {
+  const tid = req.body.tid;
+  const token = req.body.token;
+  const scopes = ["User.Read"];
+
+  // Creating MSAL client
+  const msalClient = new msal.ConfidentialClientApplication({
+    auth: {
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+    },
+  });
+
+  const oboPromise = new Promise((resolve, reject) => {
+    msalClient
+      .acquireTokenOnBehalfOf({
+        authority: `https://login.microsoftonline.com/${tid}`,
+        oboAssertion: token,
+        scopes: scopes,
+        skipCache: true,
+      })
+      .then(async (result) => {
+        const client = Client.init({
+          authProvider: (done) => {
+            done(null, result.accessToken.trim());
+          },
+        });
+        const profiles = await client.api("/me").get();
+        resolve(profiles);
+      })
+      .catch((error) => {
+        reject({ error: error.errorCode });
+      });
+  });
+
+  oboPromise.then(
+    function (result) {
+      res.json(result);
+    },
+    function (err) {
+      console.log(err); // Error: "It broke"
+      res.json(err);
+    }
+  );
 });
 
 server.post("/getUserInfo", async (req, res) => {

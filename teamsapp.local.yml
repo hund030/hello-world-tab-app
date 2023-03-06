@@ -64,3 +64,6 @@ deploy:
         PORT: 53986
         SSL_CRT_FILE: ${{SSL_CRT_FILE}}
         SSL_KEY_FILE: ${{SSL_KEY_FILE}}
+        CLIENT_ID: ${{AAD_APP_CLIENT_ID}}
+        CLIENT_SECRET: ${{SECRET_AAD_APP_CLIENT_SECRET}}
+        START_LOGIN_PAGE_URL: ${{TAB_ENDPOINT}}/auth-start.html
