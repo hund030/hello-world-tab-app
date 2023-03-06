@@ -8,6 +8,7 @@ Changelog
 1. Remove React Framework.
 1. Create server web app with restify.
 
+![hello-world-tab](images/hello-world-tab.png)
 
 ================================ Origin README ================================
 
