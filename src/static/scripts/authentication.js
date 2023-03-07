@@ -70,7 +70,7 @@ function getUserInfo(accessToken) {
     });
   });
 }
-function ssoAuthentication() {
+function getUserInfoFromSSOToken() {
   getClientSideToken()
     .then((token) => {
       const tokenObj = jwtDecode(token);
@@ -136,15 +136,13 @@ function getServerSideToken(clientSideToken) {
   });
 }
 function requestOboToken() {
-  getToken().then((data) => {
-    $("#consent").hide();
-    $("#divError").hide();
+  consent().then((data) => {
     getClientSideToken().then((token) => {
       getServerSideToken(token);
     });
   });
 }
-function getToken() {
+function consent() {
   return new Promise((resolve, reject) => {
     microsoftTeams.authentication
       .authenticate({
