@@ -23,6 +23,7 @@
         "full": "Full description of simplify_tab0227"
     },
     "accentColor": "#FFFFFF",
+    "showLoadingIndicator": true,
     "bots": [],
     "composeExtensions": [],
     "configurableTabs": [

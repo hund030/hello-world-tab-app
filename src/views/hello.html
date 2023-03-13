@@ -5,7 +5,8 @@
     <link rel="icon" href="/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/styles/msteams-16.css" />
     <script
-      src="https://unpkg.com/@microsoft/teams-js/dist/MicrosoftTeams.min.js"
+      src="https://res.cdn.office.net/teams-js/2.9.1/js/MicrosoftTeams.min.js"
+      integrity="sha384-xnsUQ1tUqsrutBJl0vuf4/hufzLFWW8ZhGnhItfpQ0/BtWgM2uw6YT6BQ5YaKBSM"
       crossorigin="anonymous"
     ></script>
     <script src="/scripts/teamsapp.js"></script>
@@ -16,11 +17,14 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="surface">
       <div class="panel">
-        <h1>Hello, World</h1>
         <div class="font-semibold font-title">
+          <h1>Hello, World</h1>
           <p>Welcome to Microsoft Teams Hello World sample app (Node.js)</p>
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      microsoftTeams.appInitialization.notifySuccess();
+    </script>
   </body>
 </html>

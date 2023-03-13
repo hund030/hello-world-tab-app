@@ -2,17 +2,17 @@
   "use strict";
 
   // Call the initialize API first
-  microsoftTeams.initialize();
+  microsoftTeams.app.initialize();
 
   // Check the initial theme user chose and respect it
-  microsoftTeams.getContext(function (context) {
+  microsoftTeams.app.getContext(function (context) {
     if (context && context.theme) {
       setTheme(context.theme);
     }
   });
 
   // Handle theme changes
-  microsoftTeams.registerOnThemeChangeHandler(function (theme) {
+  microsoftTeams.app.registerOnThemeChangeHandler(function (theme) {
     setTheme(theme);
   });
 
