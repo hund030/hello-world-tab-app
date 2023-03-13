@@ -6,7 +6,6 @@
   },
   "private": true,
   "dependencies": {
-    "axios": "^0.21.1",
     "restify": "^11.1.0",
     "send": "^0.18.0"
   },
