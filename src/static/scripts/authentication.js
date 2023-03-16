@@ -70,17 +70,6 @@ function getUserInfo(accessToken) {
     });
   });
 }
-function getUserInfoFromSSOToken() {
-  getClientSideToken()
-    .then((token) => {
-      const tokenObj = jwtDecode(token);
-      $("#name").append(tokenObj.name);
-      $("#email").append(tokenObj.oid);
-    })
-    .catch((error) => {
-      alert(error);
-    });
-}
 function getClientSideToken() {
   return new Promise((resolve, reject) => {
     microsoftTeams.authentication
@@ -92,54 +81,6 @@ function getClientSideToken() {
         alert(error);
         reject("Error getting token: " + error);
       });
-  });
-}
-function getServerSideToken(clientSideToken) {
-  return new Promise((resolve, reject) => {
-    microsoftTeams.app.getContext().then((context) => {
-      fetch("/getProfileOnBehalfOf", {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tid: context.user.tenant.id,
-          token: clientSideToken,
-        }),
-        mode: "cors",
-        cache: "default",
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log(response);
-            return response.json();
-          } else {
-            reject(response.error);
-          }
-        })
-        .then((responseJson) => {
-          if (responseJson.error) {
-            reject(responseJson.error);
-          } else {
-            const userDetails = responseJson;
-            let userName = userDetails.displayName.split(" ");
-            $("#name").append(userDetails.displayName);
-            $("#username").append(
-              `${userName[0]}_${userName[1]}  <i class="fa fa-pencil" aria-hidden="true" onclick="ssoUserNameToggle()"></i>`
-            );
-            $("#email").append(userDetails.userPrincipalName);
-            $("#work").append(userDetails.jobTitle);
-          }
-        });
-    });
-  });
-}
-function requestOboToken() {
-  consent().then((data) => {
-    getClientSideToken().then((token) => {
-      getServerSideToken(token);
-    });
   });
 }
 function consent() {
@@ -163,4 +104,4 @@ function jwtDecode(token) {
 }
 
 document.getElementById("ssoBtn").addEventListener("click", requestAccessToken);
-document.getElementById("oboBtn").addEventListener("click", requestOboToken);
+document.getElementById("oboBtn").addEventListener("click", consent);

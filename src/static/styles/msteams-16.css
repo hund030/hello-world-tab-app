@@ -15,7 +15,6 @@
   border-style: solid;
   border-width: 0.125rem;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
 }
@@ -394,7 +393,6 @@
   border-style: solid;
   border-width: 0.125rem;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
 }
@@ -773,7 +771,6 @@
   border-style: solid;
   border-width: 0.125rem;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
 }

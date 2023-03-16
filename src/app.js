@@ -22,8 +22,8 @@ server.listen(process.env.port || process.env.PORT || 3333, function () {
   console.log(`\n${server.name} listening to ${server.url}`);
 });
 
-server.get("/static/*", restify.plugins.serveStatic({
-  directory: "./src"
+server.get("/*", restify.plugins.serveStatic({
+  directory: __dirname + "/static"
 }));
 
 // Adding tabs to our app. This will setup routes to various views
@@ -47,52 +47,6 @@ server.get("/auth-end", (req, res, next) => {
 
 server.get("/blank-auth-end", (req, res, next) => {
   send(req, "src/views/auth-end.html").pipe(res);
-});
-
-server.post("/getProfileOnBehalfOf", (req, res, next) => {
-  const tid = req.body.tid;
-  const token = req.body.token;
-  const scopes = ["User.Read"];
-
-  // Creating MSAL client
-  const msalClient = new msal.ConfidentialClientApplication({
-    auth: {
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-    },
-  });
-
-  const oboPromise = new Promise((resolve, reject) => {
-    msalClient
-      .acquireTokenOnBehalfOf({
-        authority: `https://login.microsoftonline.com/${tid}`,
-        oboAssertion: token,
-        scopes: scopes,
-        skipCache: true,
-      })
-      .then(async (result) => {
-        const client = Client.init({
-          authProvider: (done) => {
-            done(null, result.accessToken.trim());
-          },
-        });
-        const profiles = await client.api("/me").get();
-        resolve(profiles);
-      })
-      .catch((error) => {
-        reject({ error: error.errorCode });
-      });
-  });
-
-  oboPromise.then(
-    function (result) {
-      res.json(result);
-    },
-    function (err) {
-      console.log(err); // Error: "It broke"
-      res.json(err);
-    }
-  );
 });
 
 server.post("/getUserInfo", async (req, res) => {

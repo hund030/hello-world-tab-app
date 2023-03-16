@@ -8,6 +8,7 @@
   "dependencies": {
     "@azure/msal-node": "^1.15.0",
     "@microsoft/microsoft-graph-client": "^3.0.5",
+    "@microsoft/teamsfx": "^2.2.0",
     "axios": "^0.21.1",
     "isomorphic-fetch": "^3.0.0",
     "restify": "^11.1.0",
