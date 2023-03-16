@@ -8,7 +8,9 @@ Changelog
 1. Remove React Framework.
 1. Create server web app with restify.
 
-![hello-world-tab](images/hello-world-tab.png)
+<img src="images/hello-world-tab.png" width="1000">
+<img src="images/hello-world-tab-outlook.png" width="1000">
+<img src="images/hello-world-tab-m365-app.png" width="1000">
 
 ================================ Origin README ================================
 
