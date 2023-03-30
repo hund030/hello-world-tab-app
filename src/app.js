@@ -4,8 +4,8 @@ const fs = require("fs");
 
 //Create HTTP server.
 const server = restify.createServer({
-  key: fs.readFileSync(process.env.SSL_KEY_FILE),
-  certificate: fs.readFileSync(process.env.SSL_CRT_FILE),
+  key: process.env.SSL_KEY_FILE ? fs.readFileSync(process.env.SSL_KEY_FILE) : undefined,
+  certificate: process.env.SSL_CRT_FILE ? fs.readFileSync(process.env.SSL_CRT_FILE) : undefined,
   formatters: {
     "text/html": function (req, res, body) {
       return body;
@@ -14,9 +14,9 @@ const server = restify.createServer({
 });
 
 server.get(
-  "/*",
+  "/static/*",
   restify.plugins.serveStatic({
-    directory: __dirname + "/static",
+    directory: __dirname
   })
 );
 

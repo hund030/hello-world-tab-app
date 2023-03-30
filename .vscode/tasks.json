@@ -54,12 +54,6 @@
         },
         {
             "label": "Start application",
-            "dependsOn": [
-                "Start frontend"
-            ]
-        },
-        {
-            "label": "Start frontend",
             "type": "shell",
             "command": "npm run dev:teamsfx",
             "isBackground": true,
@@ -67,12 +61,14 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": {
-                "pattern": {
-                    "regexp": "^.*$",
-                    "file": 0,
-                    "location": 1,
-                    "message": 2
-                },
+                "pattern": [
+                    {
+                        "regexp": "^.*$",
+                        "file": 0,
+                        "location": 1,
+                        "message": 2
+                    }
+                ],
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": ".*",
