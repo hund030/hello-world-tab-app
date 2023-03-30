@@ -27,10 +27,10 @@ server.listen(process.env.port || process.env.PORT || 3333, function () {
 // Adding tabs to our app. This will setup routes to various views
 // Setup home page
 server.get("/", (req, res, next) => {
-  send(req, "src/views/hello.html").pipe(res);
+  send(req, __dirname + "/views/hello.html").pipe(res);
 });
 
 // Setup the static tab
 server.get("/tab", (req, res, next) => {
-  send(req, "src/views/hello.html").pipe(res);
+  send(req, __dirname + "/views/hello.html").pipe(res);
 });
